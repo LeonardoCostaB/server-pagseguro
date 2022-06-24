@@ -147,8 +147,13 @@ export class PagseguroAdapters implements ProviderAdapters {
         
         return translatingApplicationResponse.prototype.translatingXmlToJson(dataResponse)
 
-      } catch (error) {
+      } catch (err) {
+        const error = (err as Error)
         console.log(error)
+
+        const feedbackUser = error.message == "Request failed with status code 401" ? 'Internal server error' : ''
+        
+        throw new Error(feedbackUser)
       }
     }
 

@@ -1,7 +1,14 @@
 import DomParser from "dom-parser";
 
+interface ResponsePagSeguroProvider {
+  code: string;
+  status: string;
+  reference: string;
+  paymentLink?: string;
+}
+
 export class translatingApplicationResponse {
-  translatingXmlToJson(response: string) {
+  translatingXmlToJson(response: string): ResponsePagSeguroProvider {
     const parser = new DomParser();
     const xmlDoc = parser.parseFromString(response);
     
@@ -14,7 +21,7 @@ export class translatingApplicationResponse {
       code,
       status: this.translateStatus(status),
       reference,
-      paymentLink: paymentLink ? paymentLink : ''
+      paymentLink: paymentLink 
     }
   }
 

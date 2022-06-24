@@ -4,10 +4,28 @@ import 'dotenv/config'
 
 import { router } from './router'
 
-const app = express()
+class Server {
+  private app = express()
 
-app.use(express.json())
-app.use(cors())
-app.use(router)
+  constructor() {
+    this.app
+    this.middlewares();
+    this.routes();
+    this.port();
+  }
 
-app.listen(5555, () => console.log('Server is running'))
+  middlewares() {
+    this.app.use(express.json())
+    this.app.use(cors())
+  }
+
+  routes() {
+    this.app.use(router)
+  }
+
+  port() {
+    this.app.listen(5555, () => console.log("server is running"))
+  }
+}
+
+export default new Server()
